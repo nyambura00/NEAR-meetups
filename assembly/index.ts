@@ -1,4 +1,5 @@
 import { MeetingUnit, availableMeetups } from './model';
+import { i32 } from 'near-sdk-as';
 
 //adding an event
 export function addEvent(title:string, description:string, location:string, date:string, imageURL:string): void{
@@ -29,3 +30,9 @@ export function getEvents(): MeetingUnit[]{
       }
     return result;
 }
+
+//adding a missing function declaration to evade 404 asser error
+function assert(arg0: boolean, arg1: string) {
+    throw new Error('Function not implemented.');
+}
+
