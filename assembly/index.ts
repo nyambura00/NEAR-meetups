@@ -30,7 +30,7 @@ export function getEvents(): MeetingUnit[]{
     return result;
 }
 
-//adding a missing function declaration to evade 404 asser error
+//adding a assert missing function declaration to evade 404 assert error
 function assert(arg0: boolean, arg1: string) {
     throw new Error('Function not implemented.');
 }
