@@ -6,7 +6,7 @@ import { login } from "./utils/near";
 function App() {
   const account = window.walletConnection.account();
   const [events, viewEvents] = useState([]);
-  const fetchEvents = useCallback(async () => {
+  const fetchEvents = useCallback(async () => { //caching management
     if (account.accountId) {
       viewEvents(await getEvents());
     }
