@@ -2,6 +2,8 @@ neardev
 /node_modules
 /build
 
+.idea/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

@@ -10,7 +10,7 @@
     "build:contract": "asb",
     "build:contract:debug": "asb --target debug",
     "deploy": "yarn build && near deploy",
-    "dev": "yarn build:contract:debug && near dev-deploy",
+    "dev": "yarn build:contract:debug && near dev-deploy ./build/debug/near-meetups.wasm",
     "test": "yarn build:contract:debug && asp"
   },
   "devDependencies": {

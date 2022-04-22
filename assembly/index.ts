@@ -16,10 +16,9 @@ export function addEvent(title:string, description:string, location:string, date
 //reading a specific event detail
 export function getEvent(id: i32): MeetingUnit{
     // validate id input
-    assert(typeof(id) === "number" ,"Invalid input, id type must be number");
+    assert(id < availableMeetups.length, "Invalid input, id not exists");
 
-    const result = availableMeetups[i32(id)];  //fetching an existing meetup id from the existing collection
-    return result;
+    return availableMeetups[i32(id)];  //fetching an existing meetup id from the existing collection
 }
 
 //reading all available meetups
