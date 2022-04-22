@@ -1,5 +1,4 @@
 import { MeetingUnit, availableMeetups } from './model';
-import { i32 } from 'near-sdk-as';
 
 //adding an event
 export function addEvent(title:string, description:string, location:string, date:string, imageURL:string): void{
