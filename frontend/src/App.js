@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useCallback, useEffect, useState } from "react";
+import { getEvents } from "./utils/meetups";
+import { login } from "./utils/near";
 
 function App() {
+  const account = window.walletConnection.account();
+  const [events, viewEvents] = useState([]);
+  const fetchEvents = useCallback(async () => {
+    if (account.accountId) {
+      viewEvents(await getEvents());
+    }
+  }, [account.accountId]);
+  useEffect(() => {
+    fetchEvents();
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {account.accountId ? (
+        events.forEach((event) => console.log(event))
+      ) : (
+        <button onClick={login}>CONNECT WALLET</button>
+      )}
+    </>
   );
 }
 
