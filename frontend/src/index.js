@@ -8,11 +8,11 @@ import { initializeContract } from './utils/near';
 
 window.nearInitPromise = initializeContract()
   .then(() => {
-    ReactDOM.render(
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(
       <React.StrictMode>
         <App />
-      </React.StrictMode>,
-      document.getElementById("root")
+      </React.StrictMode>
     );
   })
   .catch(console.error);
