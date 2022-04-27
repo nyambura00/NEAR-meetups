@@ -1,10 +1,10 @@
 import { tw } from 'twind';
 import { useState } from 'react';
 import Button from '../button';
-import { login } from '@/../utils/near';
 
-// import AppContext from '../AppContext';
+import { login, logout as destroy, accountBalance } from '../../utils/near';
 
+ 
 interface IMenuButton {
   toggleMenu: React.MouseEventHandler<HTMLButtonElement>;
   showMenu: boolean;
@@ -103,7 +103,7 @@ const Navigation = () => {
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  // const { login } = useContext(AppContext);
+  const account = window.walletConnection.account(); //fetching the relative account
 
   return (
     <nav className={tw(`bg-white`)}>
@@ -127,6 +127,7 @@ const Navigation = () => {
               </div>
             </div>
           </div>
+          
           <div className={tw(`hidden md:block`)}>
             <div className={tw(`ml-4 flex items-center md:ml-6`)}>
               <div onClick={login}>
@@ -134,6 +135,7 @@ const Navigation = () => {
               </div>
             </div>
           </div>
+          
           <div className={tw(`-mr-2 flex md:hidden`)}>
             <MenuButton showMenu={showMenu} toggleMenu={toggleMenu} />
           </div>
