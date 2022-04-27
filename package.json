@@ -6,22 +6,70 @@
   "author": "nyambura00 <winnienyambura14@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn build:contract",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "build:contract": "asb",
     "build:contract:debug": "asb --target debug",
+    "dev:deploy:contract": "near dev-deploy --wasmFile=\"./out/main.wasm\" && echo \"# This file used by webpack\nCONTRACT_NAME=$(cat neardev/dev-account)\" > .env",
+    "test:contract": "yarn build:contract:debug && asp",
     "deploy": "yarn build && near deploy",
-    "dev": "yarn build:contract:debug && near dev-deploy ./build/debug/near-meetups.wasm",
     "test": "yarn build:contract:debug && asp"
   },
   "devDependencies": {
-    "near-sdk-as": "^3.2.3"
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
+    "@types/node": "14.14.28",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.1",
+    "@typescript-eslint/eslint-plugin": "4.15.1",
+    "@typescript-eslint/parser": "4.15.1",
+    "commitizen": "4.2.3",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-next": "12.0.3",
+    "eslint-config-prettier": "7.2.0",
+    "eslint-import-resolver-typescript": "2.4.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-prettier": "3.3.1",
+    "eslint-plugin-react": "7.22.0",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "husky": "5.0.9",
+    "lint-staged": "10.5.4",
+    "near-sdk-as": "^3.2.3",
+    "prettier": "2.2.1",
+    "typescript": "4.1.5"
   },
   "dependencies": {
+    "@fontsource/inter": "4.2.1",
+    "@svgr/webpack": "5.5.0",
     "asbuild": "^0.2.0",
     "asp": "^0.0.2",
+    "lint": "0.7.0",
     "near-api-js": "^0.44.2",
     "near-cli": "3.2.0",
+    "next": "10.0.7",
+    "next-seo": "4.20.0",
+    "react": "^18.1.0",
+    "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0",
-    "typescript": "^4.6.3"
+    "react-tsparticles": "^2.0.6",
+    "twind": "0.15.4",
+    "typescript": "^4.6.3",
+    "uuid": "8.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "yarn lint --fix",
+      "yarn format"
+    ]
   }
 }
