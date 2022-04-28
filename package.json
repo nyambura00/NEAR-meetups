@@ -1,4 +1,5 @@
 {
+  "homepage": "https://nyambura00.github.io/NEAR-meetups",
   "name": "near-meetups",
   "version": "1.0.0",
   "description": "Creating a meetups Dapp using NEAR protocol",
@@ -13,8 +14,9 @@
     "build:contract:debug": "asb --target debug",
     "dev:deploy:contract": "near dev-deploy --wasmFile=\"./out/main.wasm\" && echo \"# This file used by webpack\nCONTRACT_NAME=$(cat neardev/dev-account)\" > .env",
     "test:contract": "yarn build:contract:debug && asp",
-    "deploy": "yarn build && near deploy",
-    "test": "yarn build:contract:debug && asp"
+    "test": "yarn build:contract:debug && asp",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@commitlint/cli": "11.0.0",
@@ -47,6 +49,7 @@
     "@svgr/webpack": "5.5.0",
     "asbuild": "^0.2.0",
     "asp": "^0.0.2",
+    "gh-pages": "^3.2.3",
     "lint": "0.7.0",
     "near-api-js": "^0.44.2",
     "near-cli": "3.2.0",
