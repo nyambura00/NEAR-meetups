@@ -46,17 +46,17 @@ const ParticleBg = () => (
 const articles = [
   {
     title: `NEAR-101 workshop`,
-    image: `/images/case-1.webp`,
+    image: `/images/case-1.jpeg`,
     alt: `Proident pariatur est.`,
   },
   {
     title: `Decentralized finance`,
-    image: `/images/case-2.webp`,
+    image: `/images/case-2.jpeg`,
     alt: `Proident pariatur est.`,
   },
   {
     title: `Decentralized gaming`,
-    image: `/images/case-3.webp`,
+    image: `/images/case-3.jpeg`,
     alt: `Proident pariatur est.`,
   },
 ];

@@ -6,16 +6,15 @@ const socialProofs = [
   {
     name: `Kevin Kimani`,
     company: `ABC company`,
-    image: `/images/social-1.webp`,
-    text: `NEAR-meetups gives anyone a chance to quickly immmerse yourself to the web3 world.
+    image: `/images/avatar-3.jpeg`,
+    text: `NEAR-meetups gives anyone a chance to quickly immmerse themselves to the web3 world.
     I love it here.`,
   },
   {
     name: `Everlyn Wanini`,
     company: `Techworld org`,
-    image: `/images/social-2.webp`,
-    text: `I uploaded my event swiftly, and even experienced decentralized financial events.
-    This is the future.`,
+    image: `/images/avatar-4.jpeg`,
+    text: `I uploaded my event swiftly. I love the idea of distributed finance.`,
   },
 ];
 

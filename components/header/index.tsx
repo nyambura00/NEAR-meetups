@@ -2,7 +2,7 @@ import { tw, css } from 'twind/css';
 import Button from '../button';
 
 const headerStyle = css`
-  background-color: #ffffff;
+  background: radial-gradient(circle, white, gray);
   min-height: calc(100vh - 6rem);
 `;
 
