@@ -21,4 +21,4 @@ export class MeetingUnit {
     }
 }
 
-export const availableMeetups = new PersistentVector<MeetingUnit>("meetups");
+export const availableMeetups = new PersistentVector<MeetingUnit>("m");

@@ -1,6 +1,8 @@
 import { tw, css } from 'twind/css';
 import Button from '../button';
 
+import Link from 'next/link';
+
 const headerStyle = css`
   background: radial-gradient(circle, white, gray);
   min-height: calc(100vh - 6rem);
@@ -18,7 +20,9 @@ const Header = () => (
         </p>
       </div>
       <div className={tw(`mt-10 flex justify-center items-center w-full mx-auto`)}>
-        <Button primary>Add event</Button>
+        <Link href='/addevent' passHref>
+          <Button primary>Add event</Button>
+        </Link>
         <span className={tw(`mx-2`)}>or</span>
         <Button>View events</Button>
       </div>
