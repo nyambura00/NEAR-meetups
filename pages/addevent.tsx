@@ -1,73 +1,46 @@
 // Render Prop
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import * as Yup from 'yup';
+const AddEvent = () => {
+    return (
+        <div>
+            <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+                <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">Add Event</h2>
+                <form>
+                    <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                        <div>
+                            <label className="text-gray-700 dark:text-gray-200">Event Title</label>
+                            <input id="event-title" type="text" placeholder="event title" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        </div>
 
- 
-const eventValidation = Yup.object().shape({
-    title: Yup.string()
-     .min(2, 'Too Short!')
-     .max(20, 'Too Long!')
-     .required('Required'),
-    description: Yup.string()
-     .min(2, 'Too Short!')
-     .max(200, 'Too Long!')
-     .required('Required'),
-    location: Yup.string()
-     .min(2, 'Too Short!')
-     .max(20, 'Too Long!')
-     .required('Required'),
-    date: Yup.string()
-     .min(2, 'Too Short!')
-     .max(20, 'Too Long!')
-     .required('Required'),
-    imageUrl: Yup.string()
-     .min(2, 'Too Short!')
-     .max(20, 'Too Long!')
-     .required('Required')
- });
+                        <div>
+                            <label className="text-gray-700 dark:text-gray-200">Event Description</label>
+                            <input id="event-description" type="textarea" placeholder="event description" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        </div>
 
+                        <div>
+                            <label className="text-gray-700 dark:text-gray-200">Event Location</label>
+                            <input id="event-location" type="text" placeholder="location url" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        </div>
 
-const CreateEvent = () => (
+                        <div>
+                            <label className="text-gray-700 dark:text-gray-200">Date</label>
+                            <input id="event-date" type="text" placeholder="dd-mm-yyyy" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        </div>
 
-  <div>
-    <h1>Create Event</h1>
-    <Formik
-      initialValues={{ title: '', description: '', location: '', date: '', imageUrl: '' }}
-      validationSchema = {eventValidation}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          console.log(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
-    >
+                        <div>
+                            <label className="text-gray-700 dark:text-gray-200">Image URL</label>
+                            <input id="event-imageurl" type="string" placeholder="event image url" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        </div>
+                    </div>
 
-      {({ isSubmitting }) => (
+                    <div className="flex justify-end mt-6">
+                        <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Create Event</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    )
+}
 
-        <Form>
-          <Field type="text" name="title" placeholder="event-title" />
-          <ErrorMessage name="title" component="div" />
-          <Field type="text" name="description" placeholder="event-description" />
-          <ErrorMessage name="description" component="div" />
-          <Field type="text" name="location" placeholder="event-location" />
-          <ErrorMessage name="location" component="div" />
-          <Field type="text" name="date" placeholder="dd-mm-yyyy" />
-          <ErrorMessage name="date" component="div" />
-          <Field type="text" name="imageUrl" placeholder="event-image" />
-          <ErrorMessage name="imageUrl" component="div" />
-
-          <button type="submit" disabled={isSubmitting}>
-            Create Event
-          </button>
-          
-        </Form>
-      )}
-
-    </Formik>
-  </div>
-
-);
-
-export default CreateEvent;
+export default AddEvent;

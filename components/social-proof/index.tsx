@@ -7,7 +7,7 @@ const socialProofs = [
     name: `Kevin Kimani`,
     company: `ABC company`,
     image: `/images/avatar-3.jpeg`,
-    text: `NEAR-meetups gives anyone a chance to quickly immmerse themselves to the web3 world.
+    text: `NEAR-meetups gives anyone a chance to quickly immerse themselves to the web3 world.
     I love it here.`,
   },
   {
