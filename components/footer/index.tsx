@@ -2,7 +2,7 @@ import { tw } from 'twind';
 import Button from '../button';
 
 const productLinks = [`Features`, `Add Event`];
-const aboutLinks = [`About Us`, `Careers`, `See source code`];
+const aboutLinks = [`Homepage`, `About Us`, `Careers`, `See source code`];
 const resourceLinks = [`Get started`, `Events`, `FAQs`, `Help Center`, `Other resources`];
 
 const Footer = () => (
@@ -40,7 +40,7 @@ const Footer = () => (
           </li>
           <li className={tw(`w-1/2 md:w-1/3 lg:w-1/3`)}>
             <div>
-              <h4 className={tw(`text-gray-900 text-base font-bold mb-1`)}>About Us</h4>
+              <h4 className={tw(`text-gray-900 text-base font-bold mb-1`)}>Links</h4>
               <ul>
                 {aboutLinks.map((link) => (
                   <li className={tw(`text-gray-800 text-sm font-medium leading-6`)} key={link}>

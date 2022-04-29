@@ -1,6 +1,8 @@
 // Render Prop
 import React from 'react';
 
+import Footer from '../components/footer';
+
 const AddEvent = () => {
     return (
         <div>
@@ -39,6 +41,8 @@ const AddEvent = () => {
                     </div>
                 </form>
             </section>
+
+            <Footer />
         </div>
     )
 }
