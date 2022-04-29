@@ -1,10 +1,10 @@
 import { tw } from 'twind';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import Button from '../button';
 
-import { login, logout as destroy, accountBalance } from '../../utils/near';
 import Wallet from '../wallet/index';
 
+import AppContext from '../AppContext';
  
 interface IMenuButton {
   toggleMenu: React.MouseEventHandler<HTMLButtonElement>;
@@ -102,6 +102,7 @@ const Navigation = () => {
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
 
+  const { login } = useContext(AppContext);
 
   return (
     <nav className={tw(`bg-white`)}>

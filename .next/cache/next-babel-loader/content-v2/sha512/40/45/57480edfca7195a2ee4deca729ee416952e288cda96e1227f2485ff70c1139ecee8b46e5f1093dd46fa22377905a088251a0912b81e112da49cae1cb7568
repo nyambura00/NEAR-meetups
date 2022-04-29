@@ -1,0 +1,1 @@
+{"ast":null,"code":"","map":{"version":3,"sources":[],"names":[],"mappings":"","sourcesContent":["import { MeetingUnit } from '../assembly/model';\n// import { addEvent, getEvent, getEvents } from '../utils/meetups';\n\nexport type MeetupContextType = {\n    unitMeeting: MeetingUnit[];\n};"]},"metadata":{},"sourceType":"module"}

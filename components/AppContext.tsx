@@ -1,15 +1,10 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState, createContext, useEffect } from 'react';
-import { login, logout, initializeContract, accountBalance } from '../utils/near';
+import { login, logout, initializeContract, accountBalance } from "../utils/near";
 import environment from '../utils/config';
 
-const initialState = {};
+// import { MeetupContextType } from '../components/MeetupContextType';
 
-const AppContext = createContext(initialState);
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+const AppContext = createContext(null);
 
 export const AppProvider = (props: any) => {
   const [account, setAccount] = useState({ accountId: undefined });
@@ -47,8 +42,7 @@ export const AppProvider = (props: any) => {
 
   return (
     // @ts-ignore
-    <AppContext.Provider
-      value={{
+    <AppContext.Provider value={{
         account,
         config,
         balance,
