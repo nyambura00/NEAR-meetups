@@ -2,7 +2,6 @@ import React, { useState, createContext, useEffect } from 'react';
 import { login, logout, initializeContract, accountBalance } from "../utils/near";
 import environment from '../utils/config';
 
-// import { MeetupContextType } from '../components/MeetupContextType';
 
 const AppContext = createContext(null);
 
