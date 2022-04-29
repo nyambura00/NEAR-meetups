@@ -12,7 +12,7 @@ NEAR meetups is a decentralized meetups version. A user gets to add an event, vi
 2. View meeting with id.
 3. View all meetings.
 
-📦 Instalation
+📦 Installation
 ================
 
 To run this project locally, you need to do the following steps:
