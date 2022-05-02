@@ -1,32 +1,64 @@
-import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
-import { formatNearAmount } from 'near-api-js/lib/utils/format';
-import environment from './config';
+import {
+  keyStores,
+  Near,
+  WalletConnection,
+  utils as nearUtils,
+} from "near-api-js";
 
-const nearEnv = environment('testnet');
 
-export async function initializeContract() {
-  const near = await connect({ deps: { keyStore: new keyStores.BrowserLocalStorageKeyStore() }, ...nearEnv });
-  window.walletConnection = new WalletConnection(near);
-  window.accountId = window.walletConnection.getAccountId();
-  window.contract = new Contract(window.walletConnection.account(), nearEnv.contractName, {
-    viewMethods: ['getEvent', 'getEvents'],
-    changeMethods: ['addEvent'],
+export const CONTRACT_ID = "dev-1648751639070-78408703513675";
+
+export const initializeContract = () => {
+  //Testnet config
+  const near = new Near({
+    networkId: "testnet",
+      keyStore: new keyStores.BrowserLocalStorageKeyStore(),
+      nodeUrl: "https://rpc.testnet.near.org",
+    walletUrl: "https://wallet.testnet.near.org",
   });
+
+  //Wallet init
+  wallet = new WalletConnection(near, "NEAR-meetups");
+};
+
+//Loaded after the being server to the client
+//Due to keystore needing access to the window object
+export let wallet = null;
+export let contract = null;
+export const utils = nearUtils;
+
+//Methods
+
+export const login = () => {
+  wallet.requestSignIn(CONTRACT_ID);
+};
+
+export const logout = () => {
+  wallet.signOut();
+};
+
+
+//Function for view methods
+export const viewFunction = async (functionName, args = {}) => {
+  const result = await wallet
+    .account()
+    .viewFunction(CONTRACT_ID, functionName, args);
+
+  return result;
+};
+
+//Function for call method
+export const callFunction = async (functionName, args = {}, deposit = "0") => {
+  const result = await wallet.account().functionCall({
+    contractId: CONTRACT_ID,
+    methodName: functionName,
+    args: args,
+    attachedDeposit: utils.format.parseNearAmount(deposit),
+  });
+  return result;
 }
 
+//for account balance
 export async function accountBalance() {
   return formatNearAmount((await window.walletConnection.account().getAccountBalance()).total, 2);
-}
-
-export async function getAccountId() {
-  return window.walletConnection.getAccountId();
-}
-
-export function login() {
-  window.walletConnection.requestSignIn(nearEnv.contractName);
-}
-
-export function logout() {
-  window.walletConnection.signOut();
-  window.location.reload();
 }

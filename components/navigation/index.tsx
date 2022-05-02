@@ -1,11 +1,12 @@
 import { tw } from 'twind';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Button from '../button';
 
 import Wallet from '../wallet/index';
 
-import AppContext from '../AppContext';
- 
+// import AppContext from '../AppContext';
+import { login, logout, wallet } from '../../utils/near';
+
 interface IMenuButton {
   toggleMenu: React.MouseEventHandler<HTMLButtonElement>;
   showMenu: boolean;
@@ -102,7 +103,13 @@ const Navigation = () => {
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
 
-  const { login } = useContext(AppContext);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (wallet.getAccountId()) {
+      setUser(wallet.getAccountId());
+    }
+  }, []);
 
   return (
     <nav className={tw(`bg-white`)}>
@@ -128,16 +135,27 @@ const Navigation = () => {
           </div>
           
           <div className={tw(`hidden md:block`)}>
-          
-            {/*<div className={tw(`ml-4 flex items-center md:ml-6`)}>
-              <Wallet
-                address={account.accountId}
-                amount={balance}
-                symbol="NEAR"
-                destroy={destroy}
-              />
-                </div>*/}
-            <div onClick={login}><Button>Connect wallet</Button></div>
+            {!user ? 
+              (<div className={tw(`ml-4 flex items-center md:ml-6`)}>
+                <button
+                  className="button"
+                  onClick={() => {
+                    login();
+                  }}
+                >
+                  Sign In
+                </button>
+              </div>) :
+              (<button
+                className="button"
+                onClick={() => {
+                  logout();
+                  setUser(null);
+                }}
+                >
+                  Sign out
+                </button>
+              )}
           </div>
          
           <div className={tw(`-mr-2 flex md:hidden`)}>
