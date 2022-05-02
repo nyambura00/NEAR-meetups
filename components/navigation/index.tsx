@@ -143,7 +143,7 @@ const Navigation = () => {
                     login();
                   }}
                 >
-                  Sign In
+                  Connect Wallet
                 </button>
               </div>) :
               (<button
@@ -153,7 +153,7 @@ const Navigation = () => {
                   setUser(null);
                 }}
                 >
-                  Sign out
+                  Sign Out
                 </button>
               )}
           </div>
