@@ -1,1 +1,0 @@
-{"ast":null,"code":"// Render Prop\nconst AddEv;","map":{"version":3,"sources":["/home/nyambura00/Desktop/blockchain devt/NEAR-meetups/pages/addevent.tsx"],"names":["AddEv"],"mappings":"AAAA;AAGA,MAAMA,KAAN","sourcesContent":["// Render Prop\nimport React from 'react';\n\nconst AddEv"]},"metadata":{},"sourceType":"module"}

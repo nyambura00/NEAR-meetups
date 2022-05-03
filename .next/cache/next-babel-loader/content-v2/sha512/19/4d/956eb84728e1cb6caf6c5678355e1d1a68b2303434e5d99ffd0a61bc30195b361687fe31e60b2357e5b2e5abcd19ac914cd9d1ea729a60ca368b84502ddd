@@ -1,1 +1,0 @@
-{"ast":null,"code":"// Render Prop\nvar AddEven;","map":{"version":3,"sources":["/home/nyambura00/Desktop/blockchain devt/NEAR-meetups/pages/addevent.tsx"],"names":["AddEven"],"mappings":"AAAA;AAGA,IAAMA,OAAN","sourcesContent":["// Render Prop\nimport React from 'react';\n\nconst AddEven"]},"metadata":{},"sourceType":"module"}

@@ -6,13 +6,12 @@ import '@fontsource/inter';
 // import { AppProvider } from '../components/AppContext';
 // import twindConfig from '../twind.config';
 
-import { initializeContract } from '../utils/near';
-import { useEffect, useState} from 'react';
-
+import { initializeContract } from "../utils/near";
+import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp ({ Component, pageProps }:AppProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   //Loading the NEAR API and setting up the wallet and contract
@@ -33,3 +32,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
