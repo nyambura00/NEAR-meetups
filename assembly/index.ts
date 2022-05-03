@@ -1,13 +1,15 @@
 import { MeetingUnit, availableMeetups } from './model';
+import { assert, i32 } from 'assemblyscript/std/assembly/builtins';
+
 
 //adding an event
 export function addEvent(title:string, description:string, location:string, date:string, imageURL:string): void{
     // validate all input
-    /*assert(title.length > 0, "Title is required");
+    assert(title.length > 0, "Title is required");
     assert(description.length > 0, "Description is required");
     assert(location.length > 0, "Location is required");
     assert(date.length > 0, "Date is required");
-    assert(imageURL.length > 0, "Image Url is required");*/
+    assert(imageURL.length > 0, "Image Url is required");
 
     const newEvent = new MeetingUnit(title, description, location, date, imageURL, availableMeetups.length);
     availableMeetups.push(newEvent);
