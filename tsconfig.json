@@ -24,7 +24,8 @@
         "./*"
       ]
     },
-    "incremental": true
+    "incremental": true,
+    "typeRoots": ["./types", "./src/types/index.d.ts"]
   },
   "exclude": [
     "node_modules",

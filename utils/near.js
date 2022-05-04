@@ -12,8 +12,8 @@ export const initializeContract = () => {
   //Testnet config
   const near = new Near({
     networkId: "testnet",
-      keyStore: new keyStores.BrowserLocalStorageKeyStore(),
-      nodeUrl: "https://rpc.testnet.near.org",
+    keyStore: new keyStores.BrowserLocalStorageKeyStore(),
+    nodeUrl: "https://rpc.testnet.near.org",
     walletUrl: "https://wallet.testnet.near.org",
   });
 
@@ -21,7 +21,7 @@ export const initializeContract = () => {
   wallet = new WalletConnection(near, "NEAR-meetups");
 };
 
-//Loaded after the being server to the client
+//Loaded after server-client communication
 //Due to keystore needing access to the window object
 export let wallet = null;
 export let contract = null;
