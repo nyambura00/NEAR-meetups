@@ -27,6 +27,7 @@ export let wallet = null;
 export let contract = null;
 export const utils = nearUtils;
 
+
 //Methods
 
 export const login = () => {

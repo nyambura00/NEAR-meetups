@@ -2,8 +2,6 @@ import { tw } from 'twind';
 import { useState, useContext, useEffect } from 'react';
 import Button from '../button';
 
-import Wallet from '../wallet/index';
-
 // import AppContext from '../AppContext';
 import { login, logout, wallet } from '../../utils/near';
 

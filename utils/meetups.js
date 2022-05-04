@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { v4 as uuid4 } from 'uuid';
-import { addEvent } from '../assembly/index';
 
 // const GAS = 100000000000000;
 
-export function addEventFunction(event) {
+export function addEvent(event) {
   event.id = uuid4();
   return window.contract.addEvent({ event });
 }
