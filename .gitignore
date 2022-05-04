@@ -6,6 +6,8 @@ neardev
 
 .env
 
+.next
+
 # debug
 npm-debug.log*
 yarn-debug.log*
