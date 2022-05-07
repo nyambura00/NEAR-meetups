@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import Button from '../button';
 
 // import AppContext from '../AppContext';
-import { login, logout } from '../../utils/near';
+import { login, logout, wallet } from '../../utils/near';
 
 interface IMenuButton {
   toggleMenu: React.MouseEventHandler<HTMLButtonElement>;
@@ -104,8 +104,8 @@ const Navigation = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (!user) {
-      setUser(user);
+    if (wallet.getAccountId()) {
+      setUser(wallet.getAccountId());
     }
   }, []);
 
@@ -151,7 +151,7 @@ const Navigation = () => {
                   setUser(null);
                 }}
                 >
-                  Sign Out
+                  Disconnect Wallet
                 </button>
               )}
           </div>
