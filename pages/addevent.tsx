@@ -38,7 +38,7 @@ const AddEvent = () => {
                     </div>
 
                     <div className="flex justify-end mt-6">
-                        <button onClick={ addEvent } className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Create Event</button>
+                        <button onClick={() => addEvent()} className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Create Event</button>
                     </div>
                 </form>
             </section>

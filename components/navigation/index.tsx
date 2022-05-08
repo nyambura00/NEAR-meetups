@@ -106,7 +106,7 @@ const Navigation = () => {
   useEffect(() => {
     if (wallet.getAccountId()) {
       setUser(wallet.getAccountId());
-    }
+    } 
   }, []);
 
   return (
