@@ -104,10 +104,12 @@ const Navigation = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (wallet.getAccountId()) {
-      setUser(wallet.getAccountId());
-    } 
-  }, []);
+    if(wallet){
+      const user = wallet.getAccountId();
+      setUser(user)
+    }
+  }, [wallet]
+  )
 
   return (
     <nav className={tw(`bg-white`)}>

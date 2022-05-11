@@ -36,5 +36,5 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/_app.tsx"
-  ]
+, "components/navigation/index.tsx"  ]
 }

@@ -1,10 +1,32 @@
 // Render Prop
+import { useState } from 'react';
 import React from 'react';
 
 import Footer from '../components/footer';
-import { addEvent } from '../utils/meetups';
+import { callFunction } from '../utils/near';
 
 const AddEvent = () => {
+    const [state, setState] = useState({
+        eventTitle: "",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setState({eventTitle: e.target.value})
+    }
+
+    const handleSubmit = (event: { preventDefault: () => void; target: { value: any; }; }) => {
+        event.preventDefault();
+        callFunction("Add Event", {
+            eventTitle: event.target.value,
+        })
+        .then((data)=> {
+            setState(data)
+            console.log(data);
+        })
+        .catch((error)=>{
+            Error(error);
+        })
+    }
     return (
         <div>
             <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
@@ -13,7 +35,7 @@ const AddEvent = () => {
                     <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                         <div>
                             <label className="text-gray-700 dark:text-gray-200">Event Title</label>
-                            <input id="event-title" type="text" placeholder="event title" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                            <input id="event-title" type="text" placeholder="event title" value={state.eventTitle} onChange={(e)=>handleChange(e)} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                         </div>
 
                         <div>
@@ -38,7 +60,7 @@ const AddEvent = () => {
                     </div>
 
                     <div className="flex justify-end mt-6">
-                        <button onClick={() => addEvent()} className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Create Event</button>
+                        <button onClick={()=> handleSubmit} className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Create Event</button>
                     </div>
                 </form>
             </section>

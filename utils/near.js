@@ -36,6 +36,7 @@ export const login = () => {
 
 export const logout = () => {
   wallet.signOut();
+  window.location.reload();
 };
 
 
