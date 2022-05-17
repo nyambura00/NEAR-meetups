@@ -1,7 +1,7 @@
 import { tw } from 'twind';
 import { useState, useEffect } from 'react';
 
-// import AppContext from '../AppContext';
+import { useAppContext } from '../AppContext';
 import { login, logout } from '../../utils/near';
 
 interface IMenuButton {
@@ -100,15 +100,7 @@ const Navigation = () => {
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => setShowMenu(!showMenu);
 
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    if(wallet){
-      const user = wallet.getAccountId();
-      setUser(user)
-    }
-  }, [wallet]
-  )
+  const { account, balance, contract } = useAppContext()
 
   return (
     <nav className={tw(`bg-white`)}>
@@ -134,23 +126,18 @@ const Navigation = () => {
           </div>
           
           <div className={tw(`hidden md:block`)}>
-            {!user ? 
+            {account?.accountId ? 
               (<div className={tw(`ml-4 flex items-center md:ml-6`)}>
                 <button
                   className="button"
-                  onClick={() => {
-                    login();
-                  }}
+                  onClick={login}
                 >
                   Connect Wallet
                 </button>
               </div>) :
               (<button
                 className="button"
-                onClick={() => {
-                  logout();
-                  setUser(null);
-                }}
+                onClick={logout}
                 >
                   Disconnect Wallet
                 </button>
