@@ -2,13 +2,11 @@ import { AppProps } from 'next/app';
 import '../styles/global.css';
 import '@fontsource/inter';
 
-// import { setup } from 'twind';
-// import { AppProvider } from '../components/AppContext';
-// import twindConfig from '../twind.config';
 
 import { initializeContract }  from "../utils/near";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import { AppWrapper } from '../components/AppContext';
 
 
 function MyApp ({ Component, pageProps }:AppProps) {
@@ -27,7 +25,7 @@ function MyApp ({ Component, pageProps }:AppProps) {
     (<div className="center-div">
         <ClipLoader color={"#000"} loading={true} size={50} />
     </div>) : (
-    <AnyComponent {...pageProps} />
+    <AppWrapper><AnyComponent {...pageProps} /></AppWrapper>
     );
 }
 

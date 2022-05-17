@@ -1,5 +1,5 @@
 import environment from "./config";
-import { connect, Contract, keyStores, WalletConnection } from "near-api-js";
+import { connect, Contract, keyStores, Near, WalletConnection } from "near-api-js";
 import { formatNearAmount } from "near-api-js/lib/utils/format";
 
 const nearEnv = environment("testnet");
@@ -29,6 +29,8 @@ export async function initializeContract() {
     }
   );
 }
+
+// export const wallet = window.walletConnection._walletBaseUrl;
 
 export async function accountBalance() {
   return formatNearAmount(

@@ -1,57 +1,50 @@
-import React, { useState, createContext, useEffect } from 'react';
-import { login, logout, initializeContract, accountBalance } from "../utils/near";
-import environment from '../utils/config';
+import { Contract, WalletConnection } from 'near-api-js';
+import React, { createContext, ReactElement, useCallback, useContext, useEffect, useState } from 'react';
+import { accountBalance } from '../utils/near';
 
+interface State { account?: any; contract?: any; balance?: string };
 
-const AppContext = createContext(null);
-
-export const AppProvider = (props: any) => {
-  const [account, setAccount] = useState({ accountId: undefined });
-  const [networkId, setNetworkId] = useState(`testnet`);
-  const [config, setConfig] = useState();
-  const [balance, setBalance] = useState({ tokenBalance: 0, nearBalance: 0 });
-
-  useEffect(() => {
-    async function fetch() {
-      await initializeContract();
-      // @ts-ignore
-      const acc = window.walletConnection.account();
-      setAccount(acc);
-    }
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    async function fetch() {
-      // @ts-ignore
-      if (account.connection) {
-        // @ts-ignore
-        setNetworkId(account.connection.networkId);
-        // @ts-ignore
-        setConfig(environment(networkId));
-        if (account.accountId) {
-          const near = await accountBalance();
-          // @ts-ignore
-          setBalance({ nearBalance: near });
-        }
-      }
-    }
-    fetch();
-  }, [account]);
-
-  return (
-    // @ts-ignore
-    <AppContext.Provider value={{
-        account,
-        config,
-        balance,
-        login,
-        logout,
-      }}
-    >
-      {props.children}
-    </AppContext.Provider>
-  );
+declare const window: {
+  walletConnection: WalletConnection;
+  accountId: any;
+  contract: Contract;
+  location: any;
 };
 
-export default AppContext;
+const AppContext = createContext<State>({});
+
+export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
+  const [account, setaccount] = useState<any>(null)
+  const [contract, setContract] = useState<any>(null)
+  const [balance, setBalance] = useState("0");
+
+  useEffect(() => {
+    setaccount(window.walletConnection?.account())
+    setContract(window.contract)
+  }, [])
+
+
+  const getBalance = useCallback(async () => {
+    if (account?.accountId) {
+      setBalance(await accountBalance());
+    }
+  }, [account]);
+  useEffect(() => {
+    getBalance();
+  }, [getBalance]);
+
+  const state: State = {
+    account,
+    contract,
+    balance
+  }
+  return (
+    <AppContext.Provider value={state}>
+      {children}
+    </AppContext.Provider>
+  );
+}
+
+export function useAppContext() {
+  return useContext(AppContext);
+}

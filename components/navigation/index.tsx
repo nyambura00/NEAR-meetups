@@ -2,7 +2,7 @@ import { tw } from 'twind';
 import { useState, useEffect } from 'react';
 
 // import AppContext from '../AppContext';
-import { login, logout, wallet } from '../../utils/near';
+import { login, logout } from '../../utils/near';
 
 interface IMenuButton {
   toggleMenu: React.MouseEventHandler<HTMLButtonElement>;
