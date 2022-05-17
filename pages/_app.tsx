@@ -6,7 +6,7 @@ import '@fontsource/inter';
 // import { AppProvider } from '../components/AppContext';
 // import twindConfig from '../twind.config';
 
-import { initializeContract } from "../utils/near";
+import { initializeContract }  from "../utils/near";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
