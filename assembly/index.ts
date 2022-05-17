@@ -1,5 +1,4 @@
 import { MeetingUnit, availableMeetups } from './model';
-import { assert, i32 } from 'assemblyscript/std/assembly/builtins';
 
 
 //adding an event

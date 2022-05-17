@@ -3,7 +3,6 @@ import { useState } from 'react';
 import React from 'react';
 
 import Footer from '../components/footer';
-import { callFunction } from '../utils/near';
 
 const AddEvent = () => {
     const [state, setState] = useState({
@@ -16,16 +15,6 @@ const AddEvent = () => {
 
     const handleSubmit = (event: { preventDefault: () => void; target: { value: any; }; }) => {
         event.preventDefault();
-        callFunction("Add Event", {
-            eventTitle: event.target.value,
-        })
-        .then((data)=> {
-            setState(data)
-            console.log(data);
-        })
-        .catch((error)=>{
-            Error(error);
-        })
     }
     return (
         <div>

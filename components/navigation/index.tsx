@@ -1,6 +1,5 @@
 import { tw } from 'twind';
-import { useState, useContext, useEffect } from 'react';
-import Button from '../button';
+import { useState, useEffect } from 'react';
 
 // import AppContext from '../AppContext';
 import { login, logout, wallet } from '../../utils/near';

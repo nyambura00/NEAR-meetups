@@ -5,30 +5,16 @@ import {
   utils as nearUtils,
 } from "near-api-js";
 
-
 export const CONTRACT_ID = "dev-1648751639070-78408703513675";
 
-export const initializeContract = () => {
-  //Testnet config
-  const near = new Near({
-    networkId: "testnet",
-    keyStore: new keyStores.BrowserLocalStorageKeyStore(),
-    nodeUrl: "https://rpc.testnet.near.org",
-    walletUrl: "https://wallet.testnet.near.org",
-  });
+export const near = new Near({
+  networkId: "testnet",
+  keyStore: new keyStores.BrowserLocalStorageKeyStore(),
+  nodeUrl: "https://rpc.testnet.near.org",
+  walletUrl: "https://wallet.testnet.near.org",
+});
 
-  //Wallet init
-  wallet = new WalletConnection(near, "NEAR-meetups");
-};
-
-//Loaded after server-client communication
-//Due to keystore needing access to the window object
-export let wallet = null;
-export let contract = null;
-export const utils = nearUtils;
-
-
-//Methods
+export const wallet = new WalletConnection(near, "NEAR-meetups");
 
 export const login = () => {
   wallet.requestSignIn(CONTRACT_ID);
@@ -39,18 +25,16 @@ export const logout = () => {
   window.location.reload();
 };
 
+export const accountId = wallet.getAccountId();
 
-//Function for view methods
 export const viewFunction = async (functionName, args = {}) => {
   const result = await wallet
     .account()
     .viewFunction(CONTRACT_ID, functionName, args);
-
   return result;
 };
 
-//Function for call method
-export const callFunction = async (functionName, args = {}, deposit = "0") => {
+export const addEvent = async (functionName, args = {}, deposit = "0") => {
   const result = await wallet.account().functionCall({
     contractId: CONTRACT_ID,
     methodName: functionName,
@@ -60,7 +44,6 @@ export const callFunction = async (functionName, args = {}, deposit = "0") => {
   return result;
 }
 
-//for account balance
 export async function accountBalance() {
   return formatNearAmount((await window.walletConnection.account().getAccountBalance()).total, 2);
 }
