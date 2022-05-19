@@ -1,33 +1,22 @@
-import { AppProps } from 'next/app';
-import '../styles/global.css';
-import '@fontsource/inter';
-
-
-import { initializeContract }  from "../utils/near";
-import { useEffect, useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import '../styles/global.css'
+import type { AppProps } from 'next/app'
+import { initializeContract } from "../utils/near";
+import { useEffect, useState } from 'react';
 import { AppWrapper } from '../components/AppContext';
+declare const window: any;
 
 
-function MyApp ({ Component, pageProps }:AppProps) {
-  const [isLoading, setIsLoading] = useState(true);
+function MyApp({ Component, pageProps }: AppProps) {
+  const [nearLoaded, setnearLoaded] = useState(false)
 
-  //Loading the NEAR API and setting up the wallet and contract
-  //At the start of the app
   useEffect(() => {
-    initializeContract();
-    setIsLoading(false);
-  }, []);
+    window.nearInitPromise = initializeContract().then(() => {
+      setnearLoaded(true)
+    }).catch((err) => { console.log(err) });
+  }, [])
 
-  const AnyComponent = Component as any;
-
-  return isLoading ? 
-    (<div className="center-div">
-        <ClipLoader color={"#000"} loading={true} size={50} />
-    </div>) : (
-    <AppWrapper><AnyComponent {...pageProps} /></AppWrapper>
-    );
+  return nearLoaded && <AppWrapper><Component {...pageProps} /></AppWrapper>
 }
 
-export default MyApp;
+export default MyApp
 

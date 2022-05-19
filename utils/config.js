@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-template-curly-in-string
-const CONTRACT_NAME = process.env.CONTRACT_NAME || 'nyambura00.testnet'; // line 1
+const CONTRACT_NAME = process.env.CONTRACT_NAME || 'nyambura00.testnet';
 
 function environment(env) {
   switch (env) {
-    case 'mainnet': // line 5
+    case 'mainnet':
       return {
         networkId: 'mainnet',
         nodeUrl: 'https://rpc.mainnet.near.org',
@@ -12,7 +12,7 @@ function environment(env) {
         helperUrl: 'https://helper.mainnet.near.org',
         explorerUrl: 'https://explorer.mainnet.near.org',
       };
-    case 'testnet': // line 14
+    case 'testnet': 
       return {
         networkId: 'testnet',
         nodeUrl: 'https://rpc.testnet.near.org',
