@@ -16,28 +16,15 @@ interface NavProps {
 
 }
 
-interface Contestant {
-  name: string;
-  img: string;
-  votes: number;
-}
-interface Poll {
-  id: string;
-  prompt: string;
-  contestants: Contestant[];
-  participants: string[];
-  created?: string;
-  deadline: string;
-  owner?: string;
-}
 
-interface PollForm {
-  prompt: string;
-  name1: string;
-  imgurl1: string;
-  name2: string;
-  imgurl2: string;
-  deadline: string;
+interface Event {
+  title: string;
+  description: string;
+  location: string;
+  date: string;
+  imageUrl: string;
+  created?: string;
+  owner?: string;
 }
 
 
@@ -45,18 +32,15 @@ export default function Nav({ }: NavProps) {
   const router = useRouter()
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { account, balance, contract } = useAppContext()
-  const minimumDeadline = String(Date.now() + (24 * 60 * 60 * 1000))
-  const [poll, setPoll] = useState<Poll>({
-    id: '',
-    prompt: '',
-    contestants: [],
-    participants: [],
-    deadline: minimumDeadline,
+  const [event, setEvent] = useState<Event>({
+    title: '',
+    description: '',
+    location: '',
+    date: '',
+    imageUrl: '',
   })
   let [isOpen, setIsOpen] = useState(false)
   let [loading, setLoading] = useState(false)
-  let [contestant1, setcontestant1] = useState({ name: '', votes: 0, img: '' })
-  let [contestant2, setcontestant2] = useState({ name: '', votes: 0, img: '' })
 
   function closeModal() {
     setIsOpen(false)
@@ -65,20 +49,13 @@ export default function Nav({ }: NavProps) {
   function openModal() {
     setIsOpen(true)
   }
-  //   {
-  //     "prompt": "test",
-  //     "name1": "test",
-  //     "imgurl1": "terst",
-  //     "name2": "TEST",
-  //     "imgurl2": "STEA",
-  //     "deadline": "2022-04-26T14:24:51.379"
-  // }
+  
   const onSubmit = (data: { [x: string]: any; }) => {
     setLoading(true)
-    setPoll({ ...poll, prompt: data.prompt, deadline: String(Date.parse(data.deadline)), contestants: [{ name: data.name1, votes: 0, img: data.imgurl1 }, { name: data.name2, votes: 0, img: data.imgurl2 }] })
+    setEvent({ ...event, title: data.title, description: data.description, location: data.location, date: String(Date.parse(data.date)), imageUrl: data.imageUrl })
 
-    contract.setPoll({ poll: { ...poll, ...{ prompt: data.prompt, deadline: String(Date.parse(data.deadline)), contestants: [{ name: data.name1, votes: 0, img: data.imgurl1 }, { name: data.name2, votes: 0, img: data.imgurl2 }] }, id: uuid4() } }).then(() => {
-      toast(<NotificationSuccess text="Poll Created successfully." />);
+    contract.addEvent({ event: { ...event, ...{title: data.title, description: data.description, location: data.location, date: String(Date.parse(data.date)), imageUrl: data.imageUrl }, id: uuid4() }}).then(() => {
+      toast(<NotificationSuccess text="Your event has been successfully created." />);
       setLoading(false)
       if (router.pathname !== '/') {
         router.push('/')
@@ -90,7 +67,7 @@ export default function Nav({ }: NavProps) {
       setLoading(false)
 
       console.log(err)
-      toast(<NotificationError text="Failed to create poll" />);
+      toast(<NotificationError text="Failed to create an event." />);
     })
   };
 
@@ -100,8 +77,6 @@ export default function Nav({ }: NavProps) {
 
 
   }, [errors])
-
-  // console.log(account?.accountId);
   
   return (
     <div className="flex justify-between">
@@ -154,47 +129,42 @@ export default function Nav({ }: NavProps) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Create a poll
+                    Create an event
                   </Dialog.Title>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500 mb-4">
-                        Fill in the details of your poll
+                        What does your event entail?
                       </p>
                       <div className="mb-2">
-                        <label htmlFor="prompt" className="text-sm font-semibold">Prompt </label>
-                        <input type="text" id="prompt" className="w-full my-2 border border-gray-500 rounded-md p-2" {...register("prompt", { required: true })} defaultValue={poll.prompt} />
+                        <label htmlFor="prompt" className="text-sm font-semibold">Event title </label>
+                        <input type="text" id="prompt" className="w-full my-2 border border-gray-500 rounded-md p-2" {...register("prompt", { required: true })} defaultValue={event.title} placeholder="NEAR workshop" />
                         {errors.prompt && <span className="text-sm text-red-400 font-light">This field is required</span>}
                       </div>
 
                       <div className="mb-2">
-                        <label htmlFor="name1" className="text-sm font-semibold">Name (Contestant 1) </label>
-                        <input type="text" id="name1" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("name1", { required: true })} defaultValue={contestant1.name} />
+                        <label htmlFor="name1" className="text-sm font-semibold">Event Description </label>
+                        <textarea id="name1" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("name1", { required: true })} defaultValue={event.description} placeholder="get fundamentally started with the core concepts" />
                         {errors.name1 && <span className="text-sm text-red-400 font-light">This field is required</span>}
 
                       </div>
                       <div className="mb-2">
-                        <label htmlFor="imgurl1" className="text-sm font-semibold">Image URL (Contestant 1) </label>
-                        <input type="text" id="imgurl1" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("imgurl1", { required: true })} defaultValue={contestant1.img} />
+                        <label htmlFor="imgurl1" className="text-sm font-semibold">Location URL </label>
+                        <input type="text" id="imgurl1" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("imgurl1", { required: true })} defaultValue={event.location} placeholder="https://bit.ly/NEAR101" />
                         {errors.imgurl1 && <span className="text-sm text-red-400 font-light">This field is required</span>}
 
                       </div>
                       <div className="mb-2">
-                        <label htmlFor="name2" className="text-sm font-semibold">Name (Contestant 2) </label>
-                        <input type="text" id="name2" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("name2", { required: true })} defaultValue={contestant2.name} />
+                        <label htmlFor="name2" className="text-sm font-semibold">Date String </label>
+                        <input type="text" id="name2" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("name2", { required: true })} defaultValue={event.date} placeholder="dd-mm-yyyy" />
                         {errors.name2 && <span className="text-sm text-red-400 font-light">This field is required</span>}
 
                       </div>
                       <div className="mb-2">
-                        <label htmlFor="imgurl2" className="text-sm font-semibold">Image URL (Contestant 2) </label>
-                        <input type="text" id="imgurl2" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("imgurl2", { required: true })} defaultValue={contestant2.img} />
+                        <label htmlFor="imgurl2" className="text-sm font-semibold">Image URL </label>
+                        <input type="text" id="imgurl2" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("imgurl2", { required: true })} defaultValue={event.imageUrl} placeholder="https://www.mynetworkimage.com" />
                         {errors.imgurl2 && <span className="text-sm text-red-400 font-light">This field is required</span>}
 
-                      </div>
-                      <div className="mb-2">
-                        <label className="text-sm font-semibold" htmlFor="deadline">Deadline (date and time):</label>
-                        <input type="datetime-local" id="deadline" className="w-full my-2 border border-gray-500 rounded-md p-2"{...register("deadline", { required: true, validate: value => new Date(value).getTime() >= Number(minimumDeadline) - 5 * 60 * 60 * 1000 })} defaultValue={new Date(Number(poll.deadline)).toISOString().replace('Z', '')} />
-                        {errors.deadline && <span className="text-sm text-red-400 font-light">This deadline should be at least 24 hours from now </span>}
                       </div>
                     </div>
 
@@ -202,14 +172,14 @@ export default function Nav({ }: NavProps) {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="inline-flex w-full justify-center px-4 py-4 text-sm font-medium text-white bg-secondary bg-opacity-70 border border-transparent rounded-md hover:bg-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                        className="inline-flex w-full justify-center px-4 py-4 text-sm font-medium text-black bg-secondary bg-opacity-70 border border-transparent rounded-md hover:bg-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                       // onClick={handleCreatePoll}
                       >
                         {loading ? (<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ margin: 'auto', background: 'transparent', display: 'block' }} width="30px" height="30px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                           <circle cx="50" cy="50" r="32" strokeWidth="8" stroke="#85a2b6" strokeDasharray="50.26548245743669 50.26548245743669" fill="none" strokeLinecap="round">
                             <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
                           </circle>
-                        </svg>) : 'Create Poll'}
+                        </svg>) : 'Create Event'}
 
                       </button>
                     </div>

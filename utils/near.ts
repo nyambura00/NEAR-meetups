@@ -30,8 +30,6 @@ export async function initializeContract() {
   );
 }
 
-// export const wallet = window.walletConnection._walletBaseUrl;
-
 export async function accountBalance() {
   return formatNearAmount(
     (await window.walletConnection.account().getAccountBalance()).total,
